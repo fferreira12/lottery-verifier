@@ -1,6 +1,8 @@
 import { expect } from "chai";
 
 import { Verifier } from "../src/core/verifier";
+import { LottoResult } from "../src/core/lotto-result";
+import { ResultRepository } from "../src/core/result-repository";
 
 describe("Verifier Object", () => {
 
@@ -14,12 +16,33 @@ describe("Verifier Object", () => {
     }
   }
 
+  let mockRepository = (function() {
+    let results: { [n: number]: LottoResult} = {};
+
+    let add = (result: LottoResult) => {
+      results[result.contest] = result;
+    };
+    
+    let get = (contest: number) => {
+      if(results[contest]) {
+        return results[contest] as LottoResult;
+      } else {
+        return null;
+      }
+    }
+
+    return {
+      add,
+      get
+    }
+  })() as ResultRepository;
+
   it("should get result of winner", async () => {
     let numbers = [1, 2, 3, 4, 5, 6];
 
 
 
-    let verifier = new Verifier(mockDownloader);
+    let verifier = new Verifier(mockDownloader, mockRepository);
 
     let result = await verifier.verifyGame({
       contest: 1,
@@ -37,7 +60,7 @@ describe("Verifier Object", () => {
   it("should get result of loser", async () => {
     let numbers = [1, 2, 3, 4, 5, 6];
 
-    let verifier = new Verifier(mockDownloader);
+    let verifier = new Verifier(mockDownloader, mockRepository);
 
     let result = await verifier.verifyGame({
       contest: 1,
@@ -55,7 +78,7 @@ describe("Verifier Object", () => {
   it("should get result of wins/losses", async () => {
     let numbers = [1, 2, 3, 4, 5, 6];
 
-    let verifier = new Verifier(mockDownloader);
+    let verifier = new Verifier(mockDownloader, mockRepository);
 
     let result = await verifier.verifyGame({
       contest: 1,
@@ -73,7 +96,7 @@ describe("Verifier Object", () => {
   it("should refuse different contests", async () => {
     let numbers = [1, 2, 3, 4, 5, 6];
 
-    let verifier = new Verifier(mockDownloader);
+    let verifier = new Verifier(mockDownloader, mockRepository);
 
     let trial = () => {
       verifier.verifyGame({
@@ -89,7 +112,7 @@ describe("Verifier Object", () => {
   it("should refuse number inconsistency", () => {
     let numbers = [1, 2, 3, 4, 5, 6];
 
-    let verifier = new Verifier(mockDownloader);
+    let verifier = new Verifier(mockDownloader, mockRepository);
 
     let trial = () => {
       verifier.verifyGame({
@@ -105,7 +128,7 @@ describe("Verifier Object", () => {
   it("should refuse negative numbers", () => {
     let numbers = [1, 2, 3, 4, 5, 6];
 
-    let verifier = new Verifier(mockDownloader);
+    let verifier = new Verifier(mockDownloader, mockRepository);
 
     let trial = () => {
       verifier.verifyGame({

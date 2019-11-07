@@ -10,6 +10,10 @@ describe("GigasenaDownloader Object", () => {
 
     let result = await downloader.downloadResult(2203)
 
+    if(!result) {
+      return;
+    }
+
     expect(result.contest).to.equals(2203);
     expect(result.numbers[0]).to.equals(17);
     expect(result.numbers[1]).to.equals(34);

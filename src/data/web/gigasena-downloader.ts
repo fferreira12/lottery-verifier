@@ -11,17 +11,23 @@ export class GigasenaDownloader implements ResultDownloader {
   startNumberIndex = 0;
   endNumberIndex = 5;
 
-  async downloadResult(contest: number): Promise<LottoResult> {
-    let url = this.baseUrl.replace(this.replaceStr, contest.toString());
-    let page = await this.getPage(url);
-    let numbers = await this.getNumbersFromPage(page);
-    let contestNumber = await (this.getContestNumberFromPage(page));
-    let date = await this.getDateFromPage(page);
-    return {
-      contest: contestNumber,
-      numbers, 
-      resultDate: date
-    };
+  async downloadResult(contest: number): Promise<LottoResult | null> {
+    try {
+      let url = this.baseUrl.replace(this.replaceStr, contest.toString());
+      let page = await this.getPage(url);
+      let numbers = await this.getNumbersFromPage(page);
+      let contestNumber = await (this.getContestNumberFromPage(page));
+      let date = await this.getDateFromPage(page);
+      let result = {
+        contest: contestNumber,
+        numbers, 
+        resultDate: date
+      } as LottoResult;
+      return result;
+    } catch(error) {
+      console.log(error)
+      return await null;
+    }
   }
 
   async getPage(url: string) {

@@ -2,23 +2,29 @@ import { LottoResult } from "./lotto-result";
 import { LottoGame } from "./lotto-game";
 import { LottoVerification } from "./lotto-verification";
 import { ResultDownloader } from "./result-downloader";
+import { ResultRepository } from "./result-repository";
 
 export class Verifier {
 
-  results: { [n: number]: LottoResult } = {};
+  //results: { [n: number]: LottoResult } = {};
 
   constructor(
-    private resultDownloader: ResultDownloader
+    private resultDownloader: ResultDownloader,
+    private resultRepository: ResultRepository
   ) {}
 
   async getResult(contest: number) {
-    if(!this.results[contest]) {
-      this.results[contest] = await this.resultDownloader.downloadResult(contest);
+    if(!this.resultRepository.get(contest)) {
+      let result = await this.resultDownloader.downloadResult(contest);
+      if(result) {
+        this.resultRepository.add(result);
+      }
     }
-    return this.results[contest];
+    return this.resultRepository.get(contest);
   }
 
   async verifyGame(game: LottoGame): Promise<LottoVerification> {
+    this.verifyHasResult(game);
     this.verifyValidNumbers(game);
     this.verifyNumberQuantities(game);
     
@@ -29,7 +35,7 @@ export class Verifier {
     let result = await this.getResult(game.contest);
 
     for(let n of game.numbers) {
-      if(result.numbers.includes(n)) {
+      if(result!.numbers.includes(n)) {
         quantityOfNumbersHit++;
         hitNumbers.push(n);
       } else {
@@ -38,9 +44,9 @@ export class Verifier {
     }
 
     return {
-      contest: result.contest,
+      contest: result!.contest,
       quantityOfHits: quantityOfNumbersHit,
-      quantityOfNumbersDrawn: result.numbers.length,
+      quantityOfNumbersDrawn: result!.numbers.length,
       rightNumbers: hitNumbers,
       wrongNumbers
     }
@@ -70,8 +76,15 @@ export class Verifier {
 
   async verifyNumberQuantities(game: LottoGame) {
     let result = await this.getResult(game.contest)
-    if(game.numbers.length < result.numbers.length) {
-      throw new Error(`Can't have less numbers in game (${game.numbers.length}) than in the result (${result.numbers.length})`)
+    if(game.numbers.length < result!.numbers.length) {
+      throw new Error(`Can't have less numbers in game (${game.numbers.length}) than in the result (${result!.numbers.length})`)
+    }
+  }
+
+  async verifyHasResult(game: LottoGame) {
+    let result = await this.getResult(game.contest);
+    if(!result) {
+      throw new Error(`There is no result for contest ${game.contest}`);
     }
   }
 
