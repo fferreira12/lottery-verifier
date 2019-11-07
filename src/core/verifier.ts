@@ -1,7 +1,7 @@
 import { LottoResult } from "./lotto-result";
 import { LottoGame } from "./lotto-game";
 import { LottoVerification } from "./lotto-verification";
-import { ResultDownloader } from "./contest-downloader";
+import { ResultDownloader } from "./result-downloader";
 
 export class Verifier {
 
