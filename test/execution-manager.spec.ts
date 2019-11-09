@@ -1,72 +1,46 @@
 import { expect } from "chai";
 
 import { ExecutionManager } from "../src/core/execution-manager";
-import { ResultRepository } from "../src/core/interfaces/result-repository";
-import { LottoResult } from "../src/core/interfaces/lotto-result";
 import { Verifier } from "../src/core/verifier";
 import { LottoGame } from "../src/core/interfaces/lotto-game";
 import { LottoVerification } from "../src/core/interfaces/lotto-verification";
 
+import { mockResultRepository, mockDownloader, mockGameRepository } from './mocks'
+
 describe("Execution Manager Object", () => {
-
-  let mockDownloader = {
-    downloadResult(n: number) {
-      return Promise.resolve({
-        contest: 1,
-        numbers: [1,2,3,4,5,6],
-        resultDate: new Date()
-      });
-    }
-  }
-
-  let mockRepository = (function() {
-    let results: { [n: number]: LottoResult} = {};
-
-    let add = (result: LottoResult) => {
-      results[result.contest] = result;
-    };
-    
-    let get = (contest: number) => {
-      if(results[contest]) {
-        return results[contest] as LottoResult;
-      } else {
-        return null;
-      }
-    }
-
-    return {
-      add,
-      get
-    }
-  })() as ResultRepository;
   
-  it("should verify results", async () => {
 
-    mockRepository.add({
+  it("should verify results", async () => {
+    mockResultRepository.add({
       contest: 2203,
       numbers: [17, 34, 46, 49, 50, 57],
-      resultDate: new Date(2019,9,30)
-    })
+      resultDate: new Date(2019, 9, 30)
+    });
 
-    let verifier = new Verifier(mockDownloader, mockRepository);
+    let verifier = new Verifier(mockDownloader, mockResultRepository);
 
-    let manager = new ExecutionManager(verifier);
+    let manager = new ExecutionManager(verifier, mockGameRepository);
 
     let game: LottoGame = {
-      contest: 2203,
+      contest: 1,
       numbers: [17, 34, 46, 49, 50, 57]
-    }
+    };
+    let game2: LottoGame = {
+      contest: 1,
+      numbers: [16, 35, 47, 51, 53, 58]
+    };
 
     manager.addGameToVerify(game);
+    manager.addGameToVerify(game2);
 
-    let verifications: LottoVerification[] = []
+    let verifications: LottoVerification[] = [];
 
     await manager.verifyAll((verification: LottoVerification) => {
       verifications.push(verification);
-    })
+    });
 
     expect(manager).to.be.not.null;
     expect(verifications).to.be.not.null;
-    expect(verifications.length).to.equals(1);
+    expect(verifications.length).to.equals(2);
   });
 });
