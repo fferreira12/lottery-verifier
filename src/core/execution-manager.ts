@@ -1,6 +1,6 @@
 import { Verifier } from "./verifier";
-import { LottoGame } from "./lotto-game";
-import { LottoVerification } from "./lotto-verification";
+import { LottoGame } from "./interfaces/lotto-game";
+import { LottoVerification } from "./interfaces/lotto-verification";
 
 /**
  * The ExecutionManager takes care of managing when the verifications will occur.

@@ -1,11 +1,11 @@
 import { expect } from "chai";
 
 import { ExecutionManager } from "../src/core/execution-manager";
-import { ResultRepository } from "../src/core/result-repository";
-import { LottoResult } from "../src/core/lotto-result";
+import { ResultRepository } from "../src/core/interfaces/result-repository";
+import { LottoResult } from "../src/core/interfaces/lotto-result";
 import { Verifier } from "../src/core/verifier";
-import { LottoGame } from "../src/core/lotto-game";
-import { LottoVerification } from "../src/core/lotto-verification";
+import { LottoGame } from "../src/core/interfaces/lotto-game";
+import { LottoVerification } from "../src/core/interfaces/lotto-verification";
 
 describe("Execution Manager Object", () => {
 

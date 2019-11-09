@@ -1,5 +1,5 @@
-import { ResultDownloader } from "../../core/result-downloader";
-import { LottoResult } from "../../core/lotto-result";
+import { ResultDownloader } from "../../core/interfaces/result-downloader";
+import { LottoResult } from "../../core/interfaces/lotto-result";
 import puppeteer from "puppeteer";
 
 export class GigasenaDownloader implements ResultDownloader {

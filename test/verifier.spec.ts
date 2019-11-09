@@ -1,8 +1,8 @@
 import { expect } from "chai";
 
 import { Verifier } from "../src/core/verifier";
-import { LottoResult } from "../src/core/lotto-result";
-import { ResultRepository } from "../src/core/result-repository";
+import { LottoResult } from "../src/core/interfaces/lotto-result";
+import { ResultRepository } from "../src/core/interfaces/result-repository";
 
 describe("Verifier Object", () => {
 

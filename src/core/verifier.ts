@@ -1,8 +1,8 @@
-import { LottoResult } from "./lotto-result";
-import { LottoGame } from "./lotto-game";
-import { LottoVerification } from "./lotto-verification";
-import { ResultDownloader } from "./result-downloader";
-import { ResultRepository } from "./result-repository";
+import { LottoResult } from "./interfaces/lotto-result";
+import { LottoGame } from "./interfaces/lotto-game";
+import { LottoVerification } from "./interfaces/lotto-verification";
+import { ResultDownloader } from "./interfaces/result-downloader";
+import { ResultRepository } from "./interfaces/result-repository";
 
 export class Verifier {
 

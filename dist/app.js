@@ -1,9 +1,4 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var App = /** @class */ (function () {
-    function App() {
-        console.log('app was created');
-    }
-    return App;
-}());
-exports.App = App;
+const verifier_1 = require("./core/verifier");
+exports.Verifier = verifier_1.Verifier;
