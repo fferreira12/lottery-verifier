@@ -10,7 +10,12 @@
     "test-run": "mocha -r ts-node/register test/**/*.spec.ts --timeout 15000",
     "test-debug": "mocha --inspect-brk -r ts-node/register test/**/*.spec.ts --timeout 15000",
     "test-watch": "mocha -w --extension ts -r ts-node/register test/**/*.spec.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "pre-publish": "tsc && git add -A && git commit",
+    "post-publish": "npm publish && git push",
+    "publish-patch": "npm run pre-publish && npm version patch && npm run post-publish",
+    "publish-minor": "npm run pre-publish && npm version minor && npm run post-publish",
+    "publish-major": "npm run pre-publish && npm version major && npm run post-publish"
   },
   "author": "Fernando Ferreira",
   "license": "ISC",
