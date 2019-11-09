@@ -9,11 +9,15 @@ export class MemoryRepository implements ResultRepository {
     this.results[result.contest] = result;
   }  
   
-  get(contest: number): LottoResult | null {
+  async get(contest: number): Promise<LottoResult | null> {
     if(this.results[contest]) {
-      return this.results[contest];
+      return new Promise((resolve, reject) => {
+        resolve(this.results[contest])
+      });
     } else {
-      return null;
+      return new Promise((resolve, reject) => {
+        resolve(null)
+      });
     }
   }
 }
