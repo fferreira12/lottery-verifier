@@ -5,6 +5,7 @@ import { LottoVerification } from "./core/interfaces/lotto-verification";
 import { ResultDownloader } from "./core/interfaces/result-downloader";
 import { ResultRepository } from "./core/interfaces/result-repository";
 import { GigasenaDownloader } from "./data/web/gigasena-downloader";
+import { MemoryRepository } from "./data/memory/memory-repository";
 
 export {
   Verifier,
@@ -13,5 +14,6 @@ export {
   LottoVerification,
   ResultDownloader,
   ResultRepository,
-  GigasenaDownloader
+  GigasenaDownloader,
+  MemoryRepository
 };
