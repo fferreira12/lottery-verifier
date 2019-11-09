@@ -16,11 +16,11 @@ let mockDownloader = {
 let mockResultRepository = (function() {
   let results: { [n: number]: LottoResult } = {};
 
-  let add = (result: LottoResult) => {
+  let addResult = (result: LottoResult) => {
     results[result.contest] = result;
   };
 
-  let get = (contest: number) => {
+  let getResult = (contest: number) => {
     if (results[contest]) {
       return new Promise((resolve, reject) => {
         resolve(results[contest] as LottoResult);
@@ -33,27 +33,27 @@ let mockResultRepository = (function() {
   };
 
   return {
-    add,
-    get
+    addResult,
+    getResult
   };
 })() as ResultRepository;
 
 let mockGameRepository = (function() {
   let games: LottoGame[] = [];
 
-  let add = (game: LottoGame) => {
+  let addGame = (game: LottoGame) => {
     games.push(game);
   };
 
-  let get = () => {
+  let getGames = () => {
     return new Promise((resolve, reject) => {
       resolve(games as LottoGame[]);
     });
   };
 
   return {
-    add,
-    get
+    addGame,
+    getGames
   };
 })() as GameRepository;
 

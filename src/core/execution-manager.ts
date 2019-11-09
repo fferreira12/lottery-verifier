@@ -15,7 +15,7 @@ export class ExecutionManager {
   }
 
   async initializeData() {
-    let games = await this.gamesRepo.get();
+    let games = await this.gamesRepo.getGames();
     if(games) {
       this.games = games;
     }
@@ -23,7 +23,7 @@ export class ExecutionManager {
 
   addGameToVerify(game: LottoGame) {
     this.games.push(game);
-    this.gamesRepo.add(game);
+    this.gamesRepo.addGame(game);
   }
 
   //DEPRECATED

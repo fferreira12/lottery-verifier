@@ -11,7 +11,7 @@ describe("Execution Manager Object", () => {
   
 
   it("should verify results", async () => {
-    mockResultRepository.add({
+    mockResultRepository.addResult({
       contest: 2203,
       numbers: [17, 34, 46, 49, 50, 57],
       resultDate: new Date(2019, 9, 30)

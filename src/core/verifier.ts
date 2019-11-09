@@ -14,13 +14,13 @@ export class Verifier {
   ) {}
 
   async getResult(contest: number) {
-    if(!(await this.resultRepository.get(contest))) {
+    if(!(await this.resultRepository.getResult(contest))) {
       let result = await this.resultDownloader.downloadResult(contest);
       if(result) {
-        this.resultRepository.add(result);
+        this.resultRepository.addResult(result);
       }
     }
-    return await this.resultRepository.get(contest);
+    return await this.resultRepository.getResult(contest);
   }
 
   async verifyGame(game: LottoGame): Promise<LottoVerification> {
