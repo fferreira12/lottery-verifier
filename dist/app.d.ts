@@ -4,4 +4,5 @@ import { LottoResult } from "./core/interfaces/lotto-result";
 import { LottoVerification } from "./core/interfaces/lotto-verification";
 import { ResultDownloader } from "./core/interfaces/result-downloader";
 import { ResultRepository } from "./core/interfaces/result-repository";
-export { Verifier, LottoGame, LottoResult, LottoVerification, ResultDownloader, ResultRepository };
+import { GigasenaDownloader } from "./data/web/gigasena-downloader";
+export { Verifier, LottoGame, LottoResult, LottoVerification, ResultDownloader, ResultRepository, GigasenaDownloader };
