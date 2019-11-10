@@ -7,13 +7,13 @@ class Verifier {
         this.resultRepository = resultRepository;
     }
     async getResult(contest) {
-        if (!this.resultRepository.get(contest)) {
+        if (!(await this.resultRepository.getResult(contest))) {
             let result = await this.resultDownloader.downloadResult(contest);
             if (result) {
-                this.resultRepository.add(result);
+                this.resultRepository.addResult(result);
             }
         }
-        return this.resultRepository.get(contest);
+        return await this.resultRepository.getResult(contest);
     }
     async verifyGame(game) {
         this.verifyHasResult(game);

@@ -6,6 +6,7 @@ import { ResultDownloader } from "./core/interfaces/result-downloader";
 import { ResultRepository } from "./core/interfaces/result-repository";
 import { GigasenaDownloader } from "./data/web/gigasena-downloader";
 import { MemoryRepository } from "./data/memory/memory-repository";
+import { FirebaseRepository } from "./data/web/firebase-repository";
 
 export {
   Verifier,
@@ -15,5 +16,6 @@ export {
   ResultDownloader,
   ResultRepository,
   GigasenaDownloader,
-  MemoryRepository
+  MemoryRepository,
+  FirebaseRepository
 };

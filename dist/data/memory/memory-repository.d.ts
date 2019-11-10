@@ -4,6 +4,6 @@ export declare class MemoryRepository implements ResultRepository {
     results: {
         [contest: number]: LottoResult;
     };
-    add(result: LottoResult): void;
-    get(contest: number): LottoResult | null;
+    addResult(result: LottoResult): void;
+    getResult(contest: number): Promise<LottoResult | null>;
 }

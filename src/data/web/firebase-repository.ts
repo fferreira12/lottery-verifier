@@ -2,23 +2,23 @@ import * as admin from 'firebase-admin';
 
 import { GameRepository } from "../../core/interfaces/game-repository";
 import { ResultRepository, LottoGame, LottoResult } from "../../app";
-const serviceAccount = require('../../../config/lottery-verifier-firebase-adminsdk.json');
+//const serviceAccount = require('../../../config/lottery-verifier-firebase-adminsdk.json');
 
 export class FirebaseRepository implements GameRepository, ResultRepository {
   
   private static instance: FirebaseRepository;
   db: FirebaseFirestore.Firestore;
 
-  private constructor() {
+  private constructor(serviceAccount: string | admin.ServiceAccount) {
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount)
     });
     this.db = admin.firestore();
   }
 
-  static getInstance(): FirebaseRepository {
+  static getInstance(serviceAccount: string | admin.ServiceAccount): FirebaseRepository {
     if(!FirebaseRepository.instance) {
-      FirebaseRepository.instance = new FirebaseRepository();
+      FirebaseRepository.instance = new FirebaseRepository(serviceAccount);
     }
     return FirebaseRepository.instance;
   }

@@ -5,11 +5,11 @@ export class MemoryRepository implements ResultRepository {
   
   results: { [contest: number]: LottoResult } = {};
 
-  add(result: LottoResult): void {
+  addResult(result: LottoResult): void {
     this.results[result.contest] = result;
   }  
   
-  async get(contest: number): Promise<LottoResult | null> {
+  async getResult(contest: number): Promise<LottoResult | null> {
     if(this.results[contest]) {
       return new Promise((resolve, reject) => {
         resolve(this.results[contest])

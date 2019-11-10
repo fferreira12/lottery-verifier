@@ -3,13 +3,13 @@ import { expect } from "chai";
 import { FirebaseRepository } from "../src/data/web/firebase-repository";
 import { LottoGame, LottoResult } from "../src/app";
 
-describe.only("FirebaseRepository Object", () => {
+const serviceAccount = require('../config/lottery-verifier-firebase-adminsdk.json');
 
-
+describe("FirebaseRepository Object", () => {
 
   it("should save game", async () => {
 
-    let repo = FirebaseRepository.getInstance();
+    let repo = FirebaseRepository.getInstance(serviceAccount);
 
     let game: LottoGame = {
       contest: 2204,
@@ -25,7 +25,7 @@ describe.only("FirebaseRepository Object", () => {
 
   it("should get games", async () => {
 
-    let repo = FirebaseRepository.getInstance();
+    let repo = FirebaseRepository.getInstance(serviceAccount);
 
     let games = await repo.getGames();
 
@@ -35,7 +35,7 @@ describe.only("FirebaseRepository Object", () => {
 
   it("should save result", async () => {
 
-    let repo = FirebaseRepository.getInstance();
+    let repo = FirebaseRepository.getInstance(serviceAccount);
 
     let result: LottoResult = {
       contest: 2204,
@@ -51,7 +51,7 @@ describe.only("FirebaseRepository Object", () => {
 
   it("should get result", async () => {
 
-    let repo = FirebaseRepository.getInstance();
+    let repo = FirebaseRepository.getInstance(serviceAccount);
 
     let result = await repo.getResult(2204);
 

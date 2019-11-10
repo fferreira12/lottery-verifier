@@ -4,15 +4,19 @@ class MemoryRepository {
     constructor() {
         this.results = {};
     }
-    add(result) {
+    addResult(result) {
         this.results[result.contest] = result;
     }
-    get(contest) {
+    async getResult(contest) {
         if (this.results[contest]) {
-            return this.results[contest];
+            return new Promise((resolve, reject) => {
+                resolve(this.results[contest]);
+            });
         }
         else {
-            return null;
+            return new Promise((resolve, reject) => {
+                resolve(null);
+            });
         }
     }
 }

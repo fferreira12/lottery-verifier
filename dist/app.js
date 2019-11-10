@@ -6,3 +6,5 @@ const gigasena_downloader_1 = require("./data/web/gigasena-downloader");
 exports.GigasenaDownloader = gigasena_downloader_1.GigasenaDownloader;
 const memory_repository_1 = require("./data/memory/memory-repository");
 exports.MemoryRepository = memory_repository_1.MemoryRepository;
+const firebase_repository_1 = require("./data/web/firebase-repository");
+exports.FirebaseRepository = firebase_repository_1.FirebaseRepository;
