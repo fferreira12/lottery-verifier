@@ -14,7 +14,7 @@ export class Verifier {
 
   async getResult(contest: number) {
     if (!(await this.resultRepository.getResult(contest))) {
-      let result = await this.resultDownloader.downloadResult(contest);
+      let result = await this.resultDownloader.downloadResult(contest).catch(err => {throw err});
       if (result) {
         this.resultRepository.addResult(result);
       }
@@ -92,7 +92,7 @@ export class Verifier {
   }
 
   async verifyHasResult(game: LottoGame) {
-    let result = await this.getResult(game.contest);
+    let result = await this.getResult(game.contest).catch(err => {throw err});
     if (!result) {
       throw new Error(`There is no result for contest ${game.contest}`);
     }
