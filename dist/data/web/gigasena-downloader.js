@@ -29,8 +29,8 @@ class GigasenaDownloader {
             return result;
         }
         catch (error) {
-            console.log(error);
-            return await null;
+            //console.log(error);
+            throw error;
         }
     }
     async getPage(url) {
