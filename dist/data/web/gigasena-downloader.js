@@ -19,7 +19,7 @@ class GigasenaDownloader {
             let url = this.baseUrl.replace(this.replaceStr, contest.toString());
             let page = await this.getPage(url).catch(err => { throw new Error(err); });
             let numbers = await this.getNumbersFromPage(page).catch(err => { throw new Error(err); });
-            let contestNumber = await (this.getContestNumberFromPage(page)).catch(err => { throw new Error(err); });
+            let contestNumber = await this.getContestNumberFromPage(page).catch(err => { throw new Error(err); });
             let date = await this.getDateFromPage(page).catch(err => { throw new Error(err); });
             let result = {
                 contest: contestNumber,
