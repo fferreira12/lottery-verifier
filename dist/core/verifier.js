@@ -16,9 +16,14 @@ class Verifier {
         return await this.resultRepository.getResult(contest);
     }
     async verifyGame(game) {
-        this.verifyHasResult(game);
-        this.verifyValidNumbers(game);
-        this.verifyNumberQuantities(game);
+        try {
+            this.verifyHasResult(game);
+            this.verifyValidNumbers(game);
+            this.verifyNumberQuantities(game);
+        }
+        catch (err) {
+            throw err;
+        }
         let quantityOfNumbersHit = 0;
         let hitNumbers = [];
         let wrongNumbers = [];
