@@ -25,8 +25,8 @@ export class GigasenaDownloader implements ResultDownloader {
       } as LottoResult;
       return result;
     } catch(error) {
-      console.log(error)
-      return await null;
+      //console.log(error);
+      throw error;
     }
   }
 
