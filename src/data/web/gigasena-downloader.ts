@@ -45,7 +45,7 @@ export class GigasenaDownloader implements ResultDownloader {
       if(!element) {
         continue;
       }
-      const text: string = await page.evaluate(element => element.textContent, element);
+      const text: string = await page.evaluate(element => element.textContent, element).catch(err => {throw new Error(err);});;
       numbers.push(parseInt(text));
     }
     return numbers;
@@ -53,13 +53,13 @@ export class GigasenaDownloader implements ResultDownloader {
 
   async getContestNumberFromPage(page: puppeteer.Page) { 
     const element = await page.$('#'+this.contestElementId);
-    const text: string = await page.evaluate(element => element.textContent, element);
+    const text: string = await page.evaluate(element => element.textContent, element).catch(err => {throw new Error(err);});;
     return parseInt(text);
   }
 
   async getDateFromPage(page: puppeteer.Page) { 
     const element = await page.$('#'+this.contestDateId);
-    const text: string = await page.evaluate(element => element.textContent, element);
+    const text: string = await page.evaluate(element => element.textContent, element).catch(err => {throw new Error(err);});;
     let dateStrings = text.split('/');
     let [day, month, year] = dateStrings.map(str => {
       return parseInt(str);

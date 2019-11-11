@@ -47,19 +47,22 @@ class GigasenaDownloader {
             if (!element) {
                 continue;
             }
-            const text = await page.evaluate(element => element.textContent, element);
+            const text = await page.evaluate(element => element.textContent, element).catch(err => { throw new Error(err); });
+            ;
             numbers.push(parseInt(text));
         }
         return numbers;
     }
     async getContestNumberFromPage(page) {
         const element = await page.$('#' + this.contestElementId);
-        const text = await page.evaluate(element => element.textContent, element);
+        const text = await page.evaluate(element => element.textContent, element).catch(err => { throw new Error(err); });
+        ;
         return parseInt(text);
     }
     async getDateFromPage(page) {
         const element = await page.$('#' + this.contestDateId);
-        const text = await page.evaluate(element => element.textContent, element);
+        const text = await page.evaluate(element => element.textContent, element).catch(err => { throw new Error(err); });
+        ;
         let dateStrings = text.split('/');
         let [day, month, year] = dateStrings.map(str => {
             return parseInt(str);
